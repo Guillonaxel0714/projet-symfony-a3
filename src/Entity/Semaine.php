@@ -27,6 +27,11 @@ class Semaine
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Module::class, inversedBy="semaines")
+     */
+    private $module;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Semaine
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getModule(): ?Module
+    {
+        return $this->module;
+    }
+
+    public function setModule(?Module $module): self
+    {
+        $this->module = $module;
 
         return $this;
     }
