@@ -1,0 +1,24 @@
+<table border="1">
+	<thead>
+		<tr>
+			<th>Titre</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for semaine in semaines %}
+		<tr>
+			<td>
+				<a href="">
+					{{semaine.titre}}
+				</a>
+			</td>
+			<td>{{semaine.description}}</td>
+		</tr>
+	{% else %}
+		<tr>
+			<td colspan="5">Il n'y a aucune semaine de cours</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
