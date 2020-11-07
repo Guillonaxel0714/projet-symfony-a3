@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ModuleController extends AbstractController
 {
     /**
-     * @Route("/module", name="module")
+     * @Route("/", name="home")
      */
     public function index(Request $request): Response
     {
@@ -24,6 +24,8 @@ class ModuleController extends AbstractController
         if($form->isSubmitted() && $form->isvalid()) {
             $em->persist($module); //preparer la sauvegarde
             $em->flush(); //executer la sauvegarde
+
+            $this->addFlash('success', 'Catégorie ajoutée');
         }
 
         $modules = $em->getRepository(Module::class)->findAll();
@@ -31,6 +33,20 @@ class ModuleController extends AbstractController
         return $this->render('module/index.html.twig', [
             'modules' => $modules,
             'ajout' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/module/", name="show_module")
+     */
+    public function show(Module $module = null){
+        if($module == null){
+            $this->addFlash('error', 'Catégorie introuvable');
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('module/show.html.twig', [
+            'module' => $module
         ]);
     }
 }

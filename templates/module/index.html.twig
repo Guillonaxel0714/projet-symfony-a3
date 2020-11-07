@@ -16,7 +16,11 @@
         <tbody>
             {% for module in modules %}
                 <tr>
-                    <td>{{ module.nom }}</td>
+                    <td>
+                        <a href="{{path('show_categorie')}}">
+                            {{module.nom}}
+                        </a>
+                    </td>
                 <tr>
             {% else %}
                 <tr>
