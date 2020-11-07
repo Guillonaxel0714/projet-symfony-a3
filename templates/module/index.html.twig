@@ -1,36 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ModuleController!{% endblock %}
+{% block title %}Les modules de cours{% endblock %}
 
 {% block body %}
+<h1>Modules de cours</h1>
 
-    <h1>Modules</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Cours</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for module in modules %}
+        <tr>
+            <td>
+                <a href="{{ path('show', {'id': module.id}) }}">
+                    {{module.nom}}
+                </a>
+            </td>
+            <td>{{ module.semaines|length }}</td>
+            <td>
+                <a href="{{ path('delete', {'id':module.id}) }}">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="2">Il n'y a aucun module</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nom</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            {% for module in modules %}
-                <tr>
-                    <td>
-                        <a href="">
-                            {{module.nom}}
-                        </a>
-                    </td>
-                <tr>
-            {% else %}
-                <tr>
-                    <td colspan="2">Il n'y a pas de modules</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <h2>Ajouter un module</h2>
-    {{ form(ajout) }}
-
+<h2>Ajouter un module</h2>
+{{ form(ajout) }}
 {% endblock %}

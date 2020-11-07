@@ -3,4 +3,11 @@
 {% block body %}
 	<h1>{{module.nom}}</h1>
 
+	<h3>Liste des modules</h3>
+	{% include 'semaine/liste.html.twig' with {'semaines': module.semaines} %}
+
+	<h2>Modifier le module</h2>
+	{{form(maj)}}
+
+
 {% endblock %}

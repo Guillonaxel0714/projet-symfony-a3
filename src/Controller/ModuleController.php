@@ -8,45 +8,81 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ModuleController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request): Response
+    public function index(Request $request, TranslatorInterface $trans): Response
     {
-        $em = $this->getDoctrine()->getManager(); //Recuperation de la doctrine
+        $em = $this->getDoctrine()->getManager(); // accès à la bdd
 
-        $module = new Module();
-        $form = $this->createForm(ModuleType::class, $module);
-        $form->handleRequest($request); //analyse la requete http
-        if($form->isSubmitted() && $form->isvalid()) {
-            $em->persist($module); //preparer la sauvegarde
-            $em->flush(); //executer la sauvegarde
+        $module = new Module(); // objet vide
+        $form = $this->createForm(ModuleType::class, $module); // Nouveau formulaire
+        $form->handleRequest($request); // Analyse la requete HTTP
+        if($form->isSubmitted() && $form->isValid()){ // Si le formulaire a été soumis et qu'il est valide
+            $em->persist($module); // prépare la sauvegarde en base
+            $em->flush(); // execute la sauvegarde
 
-            $this->addFlash('success', 'Catégorie ajoutée');
+            $this->addFlash(
+                'success',
+                $trans->trans('module.ajoutee')
+            );
         }
 
         $modules = $em->getRepository(Module::class)->findAll();
 
         return $this->render('module/index.html.twig', [
             'modules' => $modules,
-            'ajout' => $form->createView()
+            'ajout' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/module/", name="show_module")
+     * @Route("/module/{id}", name="show")
      */
-    public function show(Module $module = null){
+    public function show(Module $module = null, Request $request){
         if($module == null){
-            $this->addFlash('error', 'Catégorie introuvable');
-            return $this->redirectToRoute('home');
+            // Il n'a pas trouvé de module
+            $this->addFlash(
+                'erreur',
+                'Module introuvable'
+            );
+            return $this->redirectToRoute('module');
+        }
+
+        $form = $this->createForm(ModuleType::class, $module);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($module);
+            $em->flush();
+
+            $this->addFlash('success', 'Module modifiée');
         }
 
         return $this->render('module/show.html.twig', [
-            'module' => $module
+            'module' => $module,
+            'maj' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/module/delete/{id}", name="delete")
+     */
+    public function delete(Module $module = null){
+        if($module == null){
+            $this->addFlash('error', 'module introuvable');
+            return $this->redirectToRoute('module');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($module);
+        $em->flush();
+
+        $this->addFlash('success', 'Module supprimée');
+        return $this->redirectToRoute('module');
     }
 }
