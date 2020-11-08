@@ -50,5 +50,30 @@ class SemaineController extends AbstractController
             'semaine' => $semaine
         ]);
     }
+
+    /**
+     * @Route("/semaine/delete/{id}", name="delete")
+     */
+    public function delete(Semaine $semaine = null){
+        if($semaine == null){
+            $this->addFlash(
+                'erreur',
+                'Semaine introuvable'
+            );
+            return $this->redirectToRoute('semaine');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($semaine);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'semaine supprimé'
+        );
+
+        return $this->redirectToRoute('semaine');
+
+    }
 }
 

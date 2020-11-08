@@ -18,6 +18,11 @@
 			<td>{{semaine.description}}</td>
 			<td>{{semaine.notations|length}}</td>
 			<td>{{semaine.module.nom}}</td>
+			<td>
+                <a href="{{ path('delete', {'id': semaine.id}) }}">
+                    Supprimer
+                </a>
+            </td>
 		</tr>
 	{% else %}
 		<tr>

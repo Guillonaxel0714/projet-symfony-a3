@@ -50,5 +50,30 @@ class NotationController extends AbstractController
             'notation' => $notation
         ]);
     }
+
+    /**
+     * @Route("/notation/delete/{id}", name="delete")
+     */
+    public function delete(Notation $notation = null){
+        if($notation == null){
+            $this->addFlash(
+                'erreur',
+                'Notation introuvable'
+            );
+            return $this->redirectToRoute('notation');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($notation);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'notation supprimé'
+        );
+
+        return $this->redirectToRoute('notation');
+
+    }
 }
 

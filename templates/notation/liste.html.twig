@@ -14,6 +14,11 @@
             <td>{{notation.note}}</td>
             <td>{{notation.commentaire}}</td>
             <td>{{notation.semaine.titre}}</td>
+			<td>
+                <a href="{{ path('delete', {'id': notation.id}) }}">
+                    Supprimer
+                </a>
+            </td>
 		</tr>
 	{% else %}
 		<tr>
