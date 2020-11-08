@@ -2,7 +2,8 @@
 
 {% block body %}
 <h1>{{semaine.titre}}</h1>
-<p>{{semaine.description}}</p>
-<p>{{semaine.module}}</p>
+<h3>{{semaine.module}}</h3>
+
+{% include 'notation/liste.html.twig' with {'notations': semaine.notations} %}
 
 {% endblock %}

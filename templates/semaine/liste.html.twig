@@ -3,17 +3,21 @@
 		<tr>
 			<th>Titre</th>
 			<th>Description</th>
+			<th>Note</th>
+			<th>Module</th>
 		</tr>
 	</thead>
 	<tbody>
 	{% for semaine in semaines %}
 		<tr>
 			<td>
-				<a href="">
+				<a href="{{ path('show_semaine', {'id': semaine.id}) }}">
 					{{semaine.titre}}
 				</a>
 			</td>
 			<td>{{semaine.description}}</td>
+			<td>{{semaine.notations|length}}</td>
+			<td>{{semaine.module.nom}}</td>
 		</tr>
 	{% else %}
 		<tr>

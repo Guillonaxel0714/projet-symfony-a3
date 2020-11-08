@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SemaineRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,21 @@ class Semaine
      * @ORM\ManyToOne(targetEntity=Module::class, inversedBy="semaines")
      */
     private $module;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notation::class, mappedBy="semaine")
+     */
+    private $notations;
+
+    public function __construct()
+    {
+        $this->notations = new ArrayCollection();
+    }
+
+    public function __toString() {
+
+        return $this->titre;
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +86,36 @@ class Semaine
     public function setModule(?Module $module): self
     {
         $this->module = $module;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notation[]
+     */
+    public function getNotations(): Collection
+    {
+        return $this->notations;
+    }
+
+    public function addNotation(Notation $notation): self
+    {
+        if (!$this->notations->contains($notation)) {
+            $this->notations[] = $notation;
+            $notation->setSemaine($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotation(Notation $notation): self
+    {
+        if ($this->notations->removeElement($notation)) {
+            // set the owning side to null (unless already changed)
+            if ($notation->getSemaine() === $this) {
+                $notation->setSemaine(null);
+            }
+        }
 
         return $this;
     }

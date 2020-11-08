@@ -69,20 +69,4 @@ class ModuleController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/module/delete/{id}", name="delete")
-     */
-    public function delete(Module $module = null){
-        if($module == null){
-            $this->addFlash('error', 'module introuvable');
-            return $this->redirectToRoute('module');
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($module);
-        $em->flush();
-
-        $this->addFlash('success', 'Module supprimée');
-        return $this->redirectToRoute('module');
-    }
 }

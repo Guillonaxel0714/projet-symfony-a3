@@ -38,7 +38,7 @@ class SemaineController extends AbstractController
     }
 
     /**
-     * @Route("/semaine/", name="show_semaine")
+     * @Route("/semaine/{id}", name="show_semaine")
      */
     public function show(Semaine $semaine = null){
         if($semaine == null){

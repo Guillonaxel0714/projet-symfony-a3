@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notations{% endblock %}
+
+{% block body %}
+    <h1>Notations</h1>
+
+    {% include 'notation/liste.html.twig' with {'notations': notations} %}
+
+
+    <h2>Ajouter une notation</h2>
+    {{form(ajout)}}
+
+{% endblock %}
