@@ -9,6 +9,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" style="color:#c98506 ;" href="{{path('home')}}">IIM</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -86,10 +87,9 @@
         .delete{
             color: red;
         }
-
-        
         
         </style>
+
 
         {% for type, messages in app.flashes %}
             {% for message in messages %}
