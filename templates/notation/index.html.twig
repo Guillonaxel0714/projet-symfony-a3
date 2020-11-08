@@ -4,11 +4,16 @@
 
 {% block body %}
     <h1 class="mb-5 mt-3 text-center">Notations</h1>
+    <h3 class="mb-3 mt-3 ml-2">Toutes les notations :</h3>
 
     {% include 'notation/liste.html.twig' with {'notations': notations} %}
 
 
-    <h2>Ajouter une notation</h2>
-    {{form(ajout)}}
+    {% if is_granted('ROLE_USER') %}
+        <h2>Ajouter une notation</h2>
+        <div class="form">
+            {{form(ajout)}}
+        </div>
+    {% endif %}
 
 {% endblock %}

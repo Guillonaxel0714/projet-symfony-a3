@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SemaineController!{% endblock %}
+{% block title %}Semaines cours{% endblock %}
 
 {% block body %}
     <h1 class="mb-5 mt-3 text-center">Semaines</h1>
@@ -9,6 +9,8 @@
 
 
     <h2>Ajouter une semaine de cours</h2>
-    {{form(ajout)}}
+    <div class="form">
+        {{form(ajout)}}
+    </div>
 
 {% endblock %}
