@@ -14,11 +14,14 @@
             <td>{{notation.note}}</td>
             <td>{{notation.commentaire}}</td>
             <td>{{notation.semaine.titre}}</td>
-			<td>
-                <a href="{{ path('delete', {'id': notation.id}) }}">
-                    Supprimer
-                </a>
-            </td>
+
+			{% if is_granted('ROLE_USER') %}
+				<td>
+					<a class="delete"  href="{{ path('delete', {'id': notation.id}) }}">
+						Supprimer
+					</a>
+				</td>
+			{% endif %}
 		</tr>
 	{% else %}
 		<tr>

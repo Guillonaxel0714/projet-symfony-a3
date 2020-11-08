@@ -10,10 +10,12 @@
 
 
     {% if is_granted('ROLE_USER') %}
-        <h2>Ajouter une notation</h2>
+
+        <h2 class="mb-3 mt-3 ml-5">Ajouter une notation</h2>
         <div class="form">
             {{form(ajout)}}
         </div>
+
     {% endif %}
 
 {% endblock %}

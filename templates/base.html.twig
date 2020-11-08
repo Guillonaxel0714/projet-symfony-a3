@@ -8,7 +8,7 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,18 +34,59 @@
         </nav>
 
         <style>
-        
-        input, select{
-            border-radius: 25px;
-        }
-
-        textarea{
-            border-radius: 15px;
-        }
 
         .form{
             margin: 15px;
+            background-color: #454d55;
+            height: auto;
+            width: 25vw;
         }
+
+        .form input, select, textarea{
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            margin: 10px 10px;
+            background: transparent;
+            border: 0;
+            color: white;
+            padding-left: 2%;
+            border-bottom: 2px solid #c5ecfd;
+        }
+
+        .form label{
+            color: white;
+            margin-left: 3%;
+            padding-top: 2%;
+        }
+
+        .form button{
+            background-color: white;
+            color: black;
+            padding: 5px 10px;
+            border: 3px solid #c98506;
+            border-radius: 10px;
+            margin: 2%;
+        }
+
+        .form button {
+            transition-duration: 0.4s;
+        }
+
+        .form button:hover {
+            background-color: #c98506;
+            color: white;
+        }
+
+        .link{
+            color: #c98506;
+            text-decoration: none;
+        }
+
+        .delete{
+            color: red;
+        }
+
         
         
         </style>

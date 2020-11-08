@@ -5,6 +5,8 @@
 {% block body %}
 <h1 class="mb-5 mt-3 text-center">Modules de cours</h1>
 
+<h3 class="mb-3 mt-3 ml-2">Tous les modules :</h3>
+
 <table class="table table-striped table-dark">
     <thead>
         <tr>
@@ -16,16 +18,19 @@
     {% for module in modules %}
         <tr>
             <td>
-                <a href="{{ path('show', {'id': module.id}) }}">
+                <a class="link" href="{{ path('show', {'id': module.id}) }}">
                     {{module.nom}}
                 </a>
             </td>
             <td>{{ module.semaines|length }}</td>
-            <td>
-                <a href="{{ path('delete', {'id': module.id}) }}">
-                    Supprimer
-                </a>
-            </td>
+
+            {% if is_granted('ROLE_USER') %}
+                <td>
+                    <a class="delete" href="{{ path('delete', {'id': module.id}) }}">
+                        Supprimer
+                    </a>
+                </td>
+            {% endif %}
         </tr>
     {% else %}
         <tr>
@@ -35,8 +40,13 @@
     </tbody>
 </table>
 
-<h2 class="ml-3">Ajouter un module</h2>
-<div class="form">
-    {{ form(ajout) }}
-</div>
+{% if is_granted('ROLE_USER') %}
+
+    <h2 class="ml-3">Ajouter un module</h2>
+
+    <div class="form">
+        {{ form(ajout) }}
+    </div>
+
+{% endif %}
 {% endblock %}

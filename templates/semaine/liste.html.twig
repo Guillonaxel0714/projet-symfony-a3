@@ -11,18 +11,21 @@
 	{% for semaine in semaines %}
 		<tr>
 			<td>
-				<a href="{{ path('show_semaine', {'id': semaine.id}) }}">
+				<a class="link" href="{{ path('show_semaine', {'id': semaine.id}) }}">
 					{{semaine.titre}}
 				</a>
 			</td>
 			<td>{{semaine.description}}</td>
 			<td>{{semaine.notations|length}}</td>
 			<td>{{semaine.module.nom}}</td>
-			<td>
-                <a href="{{ path('delete', {'id': semaine.id}) }}">
-                    Supprimer
-                </a>
-            </td>
+
+			{% if is_granted('ROLE_USER') %}
+				<td>
+					<a class="delete" href="{{ path('delete', {'id': semaine.id}) }}">
+						Supprimer
+					</a>
+				</td>
+			{% endif %}
 		</tr>
 	{% else %}
 		<tr>
